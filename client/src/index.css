@@ -1,0 +1,5 @@
+/* In your global CSS file or imported CSS module */
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
