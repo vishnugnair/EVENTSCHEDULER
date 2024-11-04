@@ -18,7 +18,7 @@ function EventsPage() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/events/${user._id}`
+          `https://eventscheduler-epib.onrender.com/api/events/${user._id}`
         );
         setEvents(response.data);
       } catch (error) {
@@ -66,14 +66,17 @@ function EventsPage() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/events/addevent", {
-        ...newEvent,
-        userId: user._id,
-      });
+      await axios.post(
+        "https://eventscheduler-epib.onrender.com/api/events/addevent",
+        {
+          ...newEvent,
+          userId: user._id,
+        }
+      );
       toast.success("Event added successfully!");
 
       const response = await axios.get(
-        `http://localhost:5000/api/events/${user._id}`
+        `https://eventscheduler-epib.onrender.com/api/events/${user._id}`
       );
       setEvents(response.data);
 
