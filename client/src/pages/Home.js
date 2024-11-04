@@ -44,7 +44,7 @@ function FormPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://eventscheduler-epib.onrender.com/api/auth/register",
         formData
       );
       const user = response.data.user;
