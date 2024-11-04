@@ -15,17 +15,42 @@ function FormPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const { name, email, password } = formData;
+
+    if (!name || !email || !password) {
+      setError("All fields are required.");
+      return false;
+    }
+
+    // Check if email is in a valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Run validation checks
+    if (!validateForm()) {
+      return;
+    }
+
     try {
       const response = await axios.post(
-        "https://eventscheduler-epib.onrender.com/api/auth/register",
+        "http://localhost:5000/api/auth/register",
         formData
       );
       const user = response.data.user;
       navigate(`/events/${user._id}`, { state: { user } });
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response?.data?.message || "Registration failed.");
     }
   };
 
